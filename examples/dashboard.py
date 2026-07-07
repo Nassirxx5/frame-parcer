@@ -2,7 +2,7 @@
 import os
 import sys
 import streamlit as st
-
+import psycopg2
 # Inclusion automatique du dossier src pour le chargement des fonctions de base
 dossier_actuel = os.path.dirname(os.path.abspath(__file__))
 chemin_src = os.path.abspath(os.path.join(dossier_actuel, "..", "src"))
@@ -46,7 +46,12 @@ for i in range(1, nb_compteurs_max + 1):
 # ==============================================================================
 # --- ZONE PRINCIPALE : ACCUEIL ET EXÉCUTION ---
 # ==============================================================================
-
+conn = psycopg2.connect(
+            host="localhost",
+            database="omnitech_db",   # La base de données qu'on vient de créer
+            user="postgres",          # L'utilisateur administrateur
+            password="123"       # ⚠️ Mets ici le mot de passe exact que tu as tapé dans pgAdmin !2
+        )
 # Exemple de trame réelle incluant le bloc compteur $U:
 # Le compteur 1 vaut '12345678' en brut (qui devra décoder 78563412 en décimal)
 exemple_trame = (
